@@ -8,5 +8,5 @@ interface Encoder
 
     public function decode(string $encoded): int;
 
-    public function __construct($alphabet);
+    public function __construct($alphabet, $secret);
 }

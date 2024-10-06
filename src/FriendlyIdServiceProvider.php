@@ -17,6 +17,6 @@ class FriendlyIdServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/config/friendly-id.php' => config_path('friendly-id.php'),
-        ], 'config');
+        ], 'friendly-id');
     }
 }

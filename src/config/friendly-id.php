@@ -1,7 +1,43 @@
 <?php
 
 return [
-    'alphabet' => env('FRIENDLY_ID_ALPHABET', "abcdefghijklmnopqrstu"),
+    /*
+     |--------------------------------------------------------------------------
+     | Alphabets
+     |--------------------------------------------------------------------------
+     |
+     | provide a alphabet string it is best if you provide a string with randomized order
+     |
+     */
+    'alphabet' => env('FRIENDLY_ID_ALPHABET', "abcdefghijklmnopqrstuvwxyz"),
+
+    /*
+     |--------------------------------------------------------------------------
+     | Encoder Name
+     |--------------------------------------------------------------------------
+     |
+     | available option BASEN and SQIDS
+     |
+     */
     'encoder' => env('FRIENDLY_ID_ENCODER', 'SQIDS'),
-    'secret' => env('FRIENDLY_ID_SECRET'),
+
+    /*
+     |--------------------------------------------------------------------------
+     | Minimum length
+     |--------------------------------------------------------------------------
+     |
+     | This option controls the minimum length of the encoded string
+     |
+     */
+    'length' => env('FRIENDLY_ID_LENGTH', 10),
+
+    /*
+     |--------------------------------------------------------------------------
+     | Default column
+     |--------------------------------------------------------------------------
+     |
+     | This option controls the default column that friendly id uses
+     |
+     */
+    'column' => env('FRIENDLY_ID_COLUMN', 'id'),
 ];

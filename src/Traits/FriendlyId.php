@@ -7,31 +7,46 @@ trait FriendlyId
 {
     private $FriendlyIdManager;
 
-    public function encodeFriendlyId()
+    /**
+     * this will encode integer id of the model and turns it to string such as xxx-xxxx-xxx
+     */
+    public function encodeFriendlyId($columnName = null): string
     {
-        $this->FriendlyIdManager = new EncoderManager(config('friendly-id.alphabet'));
+        $this->FriendlyIdManager = new EncoderManager(config('friendly-id.alphabet'),config('friendly-id.encoder'));
 
-        return $this->FriendlyIdManager->encode($this->id);
+        $columnName ??= config('friendly-id.column');
+
+        return $this->FriendlyIdManager->encode($this->$columnName);
     }
 
-    public function decodeFriendlyId($encode)
+    public function getFriendlyIdAttribute(): string
+    {
+        return $this->encodeFriendlyId();
+    }
+
+    /**
+     * this will decode it back to integer
+     */
+    public static function decodeFriendlyId($encode): ?int
     {
         $encode = str_replace("-","", $encode);
 
-        $this->FriendlyIdManager = new EncoderManager(config('friendly-id.alphabet'));
+        $FriendlyIdManager = new EncoderManager(config('friendly-id.alphabet'));
 
         try {
-            return $this->FriendlyIdManager->decode($encode);
+            return $FriendlyIdManager->decode($encode);
         } catch (\Throwable $e) {
             return null;
         }
     }
 
-    public function scopeWhereFriendlyId($q, $id)
+    public function scopeWhereFriendlyId($q, $id, $columnName = null)
     {
-        $id = $this->decodeFriendlyId($id);
+        $id = self::decodeFriendlyId($id);
 
-        return $q->whereId($id);
+        $columnName ??= config('friendly-id.column');
+
+        return $q->where($columnName, '=' ,$id);
     }
 
 }

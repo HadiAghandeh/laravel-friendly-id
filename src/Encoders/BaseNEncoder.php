@@ -5,6 +5,7 @@ namespace HadiAghandeh\FriendlyId\Encoders;
 class BaseNEncoder
 {
     protected $baseChars;
+    protected $secret;
     protected $base;
 
     /**
@@ -12,9 +13,10 @@ class BaseNEncoder
      *
      * @param string $baseChars String containing the characters of the custom base.
      */
-    public function __construct(string $baseChars)
+    public function __construct(string $baseChars, string $secret)
     {
         $this->baseChars = $baseChars;
+        $this->secret = $secret;
         $this->base = strlen($baseChars);
     }
 
@@ -31,12 +33,19 @@ class BaseNEncoder
             return $this->baseChars[0];
         }
 
+        $id = hexdec(substr(sha1($this->secret), 0, 8)) ^ $id;
+
         $encoded = '';
+
         while ($id > 0) {
             $remainder = $id % $this->base;
             $encoded = $this->baseChars[$remainder] . $encoded;
 
             $id = bcdiv($id, $this->base, 0);
+        }
+
+        if(strlen($encoded) < config('friendly-id.length')) {
+            $encoded = str_repeat($this->baseChars[0], config('friendly-id.length') - strlen($encoded)) . $encoded;
         }
 
         return $encoded;
@@ -57,6 +66,6 @@ class BaseNEncoder
             $decoded = $decoded * $this->base + strpos($this->baseChars, $encodedString[$i]);
         }
 
-        return $decoded;
+        return hexdec(substr(sha1($this->secret), 0, 8)) ^ $decoded;
     }
 }

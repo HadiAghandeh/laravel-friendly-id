@@ -9,14 +9,12 @@ class EncoderManager
     public function __construct(protected $alphabet = "abcdefghijklmnopqrstuvwxyz", protected $encoderName = "BASEN")
     {
         if("BASEN" == $this->encoderName) {
-            $this->encoder = new BaseNEncoder($this->alphabet);
+            $this->encoder = new BaseNEncoder($this->alphabet, config("friendly-id.secret"));
         } else if ("SQIDS" == $this->encoderName) {
-            $this->encoder = new SQIDEncoder($this->alphabet);
+            $this->encoder = new SQIDEncoder($this->alphabet, config("friendly-id.secret"));
         } else {
             throw new \Exception('The encoder is not defined');
         }
-
-
     }
 
     public function encode(int $id)
@@ -26,7 +24,7 @@ class EncoderManager
         return $this->formatFriendlyId($encode);
     }
 
-    const FriendlyIdGroups = [3,4,3,4];
+    const FriendlyIdGroups = [3,4,3,4,3,4,3,4];
 
     private function formatFriendlyId($encoded)
     {

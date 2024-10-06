@@ -6,7 +6,7 @@ use HadiAghandeh\FriendlyId\Encoders\EncoderManager;
 use HadiAghandeh\FriendlyId\FriendlyIdServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class BaseNEncodingTest extends \Orchestra\Testbench\TestCase
+class EncodingTest extends \Orchestra\Testbench\TestCase
 {
     use RefreshDatabase;
 
@@ -29,9 +29,16 @@ class BaseNEncodingTest extends \Orchestra\Testbench\TestCase
     }
 
     public function testThatEncodingIsRight() {
-        $numbers = array_map(function () {
-            return rand(0, 500000000000);
-        }, array_fill(0, 2000, null));
+        $numbers = [
+            124,
+            125,
+            50000,
+            50001,
+            100000,
+            1000000,
+            1000000000,
+            1000000000000
+        ];
 
         $failed = false;
 

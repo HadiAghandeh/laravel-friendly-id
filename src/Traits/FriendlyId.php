@@ -7,21 +7,27 @@ trait FriendlyId
 {
     private $FriendlyIdManager;
 
+    /**
+     * this will encode integer id of the model and turns it to string such as xxx-xxxx-xxx
+     */
     public function encodeFriendlyId()
     {
-        $this->FriendlyIdManager = new EncoderManager(config('friendly-id.alphabet'));
+        $this->FriendlyIdManager = new EncoderManager(config('friendly-id.alphabet'),config('friendly-id.encoder'));
 
         return $this->FriendlyIdManager->encode($this->id);
     }
 
-    public function decodeFriendlyId($encode)
+    /**
+     * this will decode it back to integer
+     */
+    public static function decodeFriendlyId($encode)
     {
         $encode = str_replace("-","", $encode);
 
-        $this->FriendlyIdManager = new EncoderManager(config('friendly-id.alphabet'));
+        $FriendlyIdManager = new EncoderManager(config('friendly-id.alphabet'));
 
         try {
-            return $this->FriendlyIdManager->decode($encode);
+            return $FriendlyIdManager->decode($encode);
         } catch (\Throwable $e) {
             return null;
         }
@@ -29,7 +35,7 @@ trait FriendlyId
 
     public function scopeWhereFriendlyId($q, $id)
     {
-        $id = $this->decodeFriendlyId($id);
+        $id = self::decodeFriendlyId($id);
 
         return $q->whereId($id);
     }

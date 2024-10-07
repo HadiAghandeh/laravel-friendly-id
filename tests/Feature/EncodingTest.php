@@ -5,6 +5,7 @@ namespace Feature;
 use HadiAghandeh\FriendlyId\Encoders\EncoderManager;
 use HadiAghandeh\FriendlyId\FriendlyIdServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Workbench\App\Models\TestModel;
 
 class EncodingTest extends \Orchestra\Testbench\TestCase
 {
@@ -37,16 +38,21 @@ class EncodingTest extends \Orchestra\Testbench\TestCase
             100000,
             1000000,
             1000000000,
-            1000000000000
+            1000000000000,
+            12545656455156,
+            56478641,
+            9999999999
         ];
 
         $failed = false;
 
         foreach ($numbers as $num) {
-            $encoder = new EncoderManager(config('friendly-id.alphabet'), config('friendly-id.encoder'));
-            $encoding = $encoder->encode($num);
+            $testmodel = new TestModel();
+            $testmodel->id = $num;
 
-            $decoded = $encoder->decode($encoding);
+            $encoding = $testmodel->encodeFriendlyId();
+
+            $decoded = TestModel::decodeFriendlyId($encoding);
 
             echo "$num -> $encoding -> $decoded" . PHP_EOL;
 

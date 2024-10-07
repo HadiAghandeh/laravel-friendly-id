@@ -19,6 +19,14 @@ class SQIDEncoder implements Encoder
     {
         $sqid = new Sqids(alphabet: $this->alphabet, minLength: config('friendly-id.length'));
 
+        // decode
+        $decoded = $sqid->decode($encoded)[0];
+
+        // validate
+        if($this->encode($decoded) != $encoded) {
+            return -1;
+        }
+
         return $sqid->decode($encoded)[0];
     }
 

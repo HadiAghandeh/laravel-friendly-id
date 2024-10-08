@@ -1,9 +1,11 @@
 
 # Laravel Friendly ID Package
 
+![Laravel Friendly ID](image.jpg)
+
 Looking to generate user-friendly, Google Meet-style URLs in your Laravel application? Our Laravel package provides a trait to create and decode "friendly" string representations of model IDs, perfect for hiding integer IDs in URLs without storing a URL slug in a separate column.
 
-This package is designed to enhance the readability of URLs by obfuscating integer IDs, not for storing sensitive data. It reduces the length of identifiers while creating clean, aesthetically pleasing URL formats like `xxx-xxxx-xxx`, which may appear random but simply represent integer IDs stored in the database. This approach offers simplicity, elegance, and a better user experience, especially when creating Google Meet-style URLs or friendly ID URLs.
+This package is designed to enhance the readability of URLs by obfuscating integer IDs. It reduces the length of identifiers while creating clean, aesthetically pleasing URL formats like `xxx-xxxx-xxx`, which may appear random but simply represent integer IDs stored in the database. This approach offers simplicity, elegance, and a better user experience, especially when creating Google Meet-style URLs or friendly ID URLs.
 
 If you're looking for a way to transform integer IDs into encrypted strings to improve URL readability, this package is the perfect fit.
 ## Default Usage
@@ -21,7 +23,7 @@ class Post extends Model
 
 // get encoded id
 $post = Post::find(1);
-$friendlyId = $post->fiendly_id // = xxx-xxxx-xxx
+$friendlyId = $post->friendly_id // = xxx-xxxx-xxx
 
 // find the model
 $post = Post::whereFriendlyId($friendlyId);

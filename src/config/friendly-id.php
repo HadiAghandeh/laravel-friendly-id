@@ -16,7 +16,7 @@ return [
      | Encoder Name
      |--------------------------------------------------------------------------
      |
-     | available option BASEN and SQIDS
+     | available option BASEN, SQIDS and WORDS
      |
      */
     'encoder' => env('FRIENDLY_ID_ENCODER', 'SQIDS'),
@@ -27,7 +27,7 @@ return [
      |--------------------------------------------------------------------------
      |
      | This option controls the minimum length of the encoded string
-     |
+     | This is not applied to WORDS encoder
      */
     'length' => env('FRIENDLY_ID_LENGTH', 10),
 

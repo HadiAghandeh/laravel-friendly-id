@@ -65,7 +65,7 @@ return [
      | Encoder Name
      |--------------------------------------------------------------------------
      |
-     | available option BASEN and SQIDS
+     | available option BASEN, SQIDS and WORDS
      |
      */
     'encoder' => env('FRIENDLY_ID_ENCODER', 'SQIDS'),
@@ -95,6 +95,50 @@ return [
 - `alphabet`: The set of characters used to encode the ID. By default, it uses `"abcdefghijklmnopqrstu"`. You can modify it via environment variables.
 - `encoder`: The encoder algorithm used to create friendly IDs. The default encoder is `"SQIDS"`. You can change this through the `FRIENDLY_ID_ENCODER` environment variable. available encoders are `BASEN` and `SQIDS`
 
+## Encoders
+### BASEN
+This changes the base of the integer to letters provided by FRIENDLY_ID_ALPHABET.
+
+Example output with a length of 7:
+```angular2html
+124 -> ctt-rctz 
+125 -> ctt-rcty
+50000 -> ctt-tyrj
+50001 -> ctt-tyri
+50002 -> ctt-tyrh
+100000 -> ctt-pfwd
+100001 -> ctt-pfwc
+100002 -> ctt-pfwb
+1000000 -> ctv-oodv
+1000000000 -> ndh-nmh
+1000000001 -> ndh-nmg
+```
+
+### SQIDS
+This uses the well-known Sqids algorithm with its PHP package.
+
+Example output with a length of 10:
+```angular2html
+100002 -> esz-xmrs-alo 
+1000000 -> msw-pppt-ozp 
+1000000000 -> uyr-vkkk-kgq
+1000000001 -> gmx-qeee-rkr
+1000000002 -> mqs-dppp-sto
+1256541245 -> vdb-ryev-tqc
+1000000000000 -> mzj-rppp-ppp
+12545656455156 -> etv-cbxc-lts-s
+```
+
+### WORDS
+Sometimes, you may prefer your string to be a mix of words. These strings are easier to remember due to their use of vowels.
+```angular2html
+50001 -> hem-ho
+50002 -> nap-pan
+100000 -> rich-feet
+100001 -> land-sum
+100002 -> like-big
+1000000 -> wine-safe-farm
+```
 ## Usage
 
 To start using friendly IDs in your Laravel models, simply use the `FriendlyId` trait in your model class.
@@ -172,3 +216,6 @@ vendor/bin/phpunit
 ## License
 
 This package is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+# Support
+If this package helps you, please consider giving it a ⭐ on GitHub! Your support means a lot and helps to maintain this project.

@@ -13,7 +13,7 @@ class BaseNEncoder
      *
      * @param string $baseChars String containing the characters of the custom base.
      */
-    public function __construct(string $baseChars, string $secret)
+    public function __construct(string $baseChars, $secret = null)
     {
         $this->baseChars = $baseChars;
         $this->secret = $secret;
@@ -33,7 +33,7 @@ class BaseNEncoder
             return $this->baseChars[0];
         }
 
-        $id = hexdec(substr(sha1($this->secret), 0, 8)) ^ $id;
+        $id = hexdec(substr(sha1($this->baseChars), 0, 8)) ^ $id;
 
         $encoded = '';
 
@@ -66,6 +66,11 @@ class BaseNEncoder
             $decoded = $decoded * $this->base + strpos($this->baseChars, $encodedString[$i]);
         }
 
-        return hexdec(substr(sha1($this->secret), 0, 8)) ^ $decoded;
+        return hexdec(substr(sha1($this->baseChars), 0, 8)) ^ $decoded;
+    }
+
+    public function isWord(): bool
+    {
+        return false;
     }
 }

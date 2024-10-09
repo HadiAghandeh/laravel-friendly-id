@@ -12,6 +12,8 @@ class EncoderManager
             $this->encoder = new BaseNEncoder($this->alphabet, config("friendly-id.secret"));
         } else if ("SQIDS" == $this->encoderName) {
             $this->encoder = new SQIDEncoder($this->alphabet, config("friendly-id.secret"));
+        } else if ("WORDS" == $this->encoderName) {
+            $this->encoder = new WordsEncoder();
         } else {
             throw new \Exception('The encoder is not defined');
         }
@@ -20,6 +22,10 @@ class EncoderManager
     public function encode(int $id)
     {
         $encode = $this->encoder->encode($id);
+
+        if($this->encoder->isWord()) {
+            return $encode;
+        }
 
         return $this->formatFriendlyId($encode);
     }
@@ -47,7 +53,9 @@ class EncoderManager
 
     public function decode(string $encode)
     {
-        $encode = str_replace("-","", $encode);
+        if(!$this->encoder->isWord()) {
+            $encode = str_replace("-","", $encode);
+        }
 
         return $this->encoder->decode($encode);
     }

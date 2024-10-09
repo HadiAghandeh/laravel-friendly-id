@@ -29,8 +29,6 @@ trait FriendlyId
      */
     public static function decodeFriendlyId($encode): ?int
     {
-        $encode = str_replace("-","", $encode);
-
         $FriendlyIdManager = new EncoderManager(config('friendly-id.alphabet'),config('friendly-id.encoder'));
 
         try {

@@ -35,4 +35,9 @@ class SQIDEncoder implements Encoder
         $this->alphabet = $alphabet;
         $this->secret = $secret;
     }
+
+    public function isWord(): bool
+    {
+        return false;
+    }
 }

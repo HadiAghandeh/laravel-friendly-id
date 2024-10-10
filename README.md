@@ -3,12 +3,19 @@
 
 ![Laravel Friendly ID](image.jpg)
 
-Looking to generate user-friendly, Google Meet-style URLs in your Laravel application? Our Laravel package provides a trait to create and decode "friendly" string representations of model IDs, perfect for hiding integer IDs in URLs without storing a URL slug in a separate column.
+**Looking to convert the integer primary ID of your laravel model to an user friendly string?**
 
-This package is designed to enhance the readability of URLs by obfuscating integer IDs. It reduces the length of identifiers while creating clean, aesthetically pleasing URL formats like `xxx-xxxx-xxx`, which may appear random but simply represent integer IDs stored in the database. This approach offers simplicity, elegance, and a better user experience, especially when creating Google Meet-style URLs or friendly ID URLs.
+This package is flexible, but if you're looking for examples of usage, you can apply it in multiple areas, such as making URLs more readable or creating tracking IDs.
 
-If you're looking for a way to transform integer IDs into encrypted strings to improve URL readability, this package is the perfect fit.
-## Default Usage
+**1335684976 -> xxx-xxxx-xxx**
+
+## Here are some potential uses for having a string representation of IDs:
+- **URL Creation**: A string representation of integer IDs can enhance your application's readability by masking real IDs and improving clarity, especially in URLs. Such as Google Meet style urls
+- **Model Tracking**: You can use string IDs instead of integers for better user experience.
+- **Reference Codes**: For customer-facing references, like invoices or orders, string IDs are more user-friendly than raw numbers.
+- **API Responses**: String-based IDs can make API data less predictable and easier to manage across different systems.
+- **Cross-System Compatibility**: Some external systems may require a string format for identifiers, and strings can offer better flexibility for integration.
+## Laravel Friendly ID is easy to use:
 ```php 
 // use the trait
 namespace App\Models;

@@ -1,13 +1,13 @@
 
-# Laravel Friendly ID Package
+# Laravel Friendly ID - Laravel String ID
 
-![Laravel Friendly ID](image.jpg)
+![Laravel Friendly ID - Laravel String ID](image.jpg)
 
 **Looking to convert the integer primary ID of your laravel model to an user friendly string?**
 
-This package is flexible, but if you're looking for examples of usage, you can apply it in multiple areas, such as making URLs more readable or creating tracking IDs.
+This package enables you to generate string-based IDs for your models, without the need for a separate ID column. By default, Laravel uses integer IDs with MySQL, but in many cases, you may need unique string identifiers for your models. This package helps you implement these unique string IDs seamlessly.
 
-**1335684976 -> xxx-xxxx-xxx**
+**1335684976 -> encode -> xxx-xxxx-xxx -> decode -> 1335684976**
 
 ## Here are some potential uses for having a string representation of IDs:
 - **URL Creation**: A string representation of integer IDs can enhance your application's readability by masking real IDs and improving clarity, especially in URLs. Such as Google Meet style urls

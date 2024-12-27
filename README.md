@@ -1,6 +1,6 @@
 
 # Laravel Friendly ID - Laravel String ID
-
+[![](https://visitcount.itsvg.in/api?id=hadi-aghandeh-laravel-friendly-id&label=Views&color=12&icon=1&pretty=true)](https://visitcount.itsvg.in)
 ![Laravel Friendly ID - Laravel String ID](image.jpg)
 
 **Looking to convert the integer primary ID of your laravel model to an user friendly string?**
